@@ -16,6 +16,8 @@ class BarChart {
     this.barWidth = obj.barWidth;
     this.barColour = obj.barColour;
     this.numBars = obj.data.length;
+    this.barStrokeColour = obj.barStrokeColour;
+    this.barStrokeThickness = obj.barStrokeThickness;
 
     //axis
     this.axisColour = obj.axisColour;
@@ -29,12 +31,15 @@ class BarChart {
     this.tickPadding = obj.tickPadding;
     this.tickStrokeWeight = obj.tickStrokeWeight;
     this.tickStrokeLength = obj.tickStrokeLength;
+    this.tickNumRounding = obj.tickNumRounding;
+    this.tickDecimalPlaces =obj.tickDecimalPlaces;
 
     //labels
     this.labelColour = obj.labelColour;
     this.labelPadding = obj.labelPadding;
     this.labelRotation = obj.labelRotation;
     this.labelTextSize = obj.labelTextSize;
+    this.labelAlignment = obj.labelAlignment;
   }
 
   render() {
@@ -48,26 +53,30 @@ class BarChart {
     line(0, 0, this.chartWidth, 0);
     line(0, 0, 0, -this.chartHeight);
 
-    noStroke();
     fill(this.barColour);
+    stroke(this.barStrokeColour);
+    strokeWeight(this.barStrokeThickness)
+  
 
-    let barGap =
-      (this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
+    let barGap =(this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
+    let maxValue = max(this.data.map((x) => x.Total))
+    let scale = this.chartHeight / max(this.data.map((x) => x.Total));
 	  let labels = this.data.map((x) => x[this.xAxisLabel]);
-	  // console.log(barGap);
+	  // console.log(scale);
     for (let i = 0; i < this.numBars; i++) {
-      let jump = barGap * (i + 1) + this.barWidth * i;
-      let colHeight = this.data[i].Total * 10;
+      let jump = ( barGap * (i + 1)) + (this.barWidth * i);
+      let colHeight = this.data[i][this.yAxisValue] * scale;
 
       rect(jump, 0, this.barWidth, -colHeight);
 
       noStroke();
       fill(this.labelColour);
-	  textSize (15);
-	  textFont(fontReg)
+	    textSize (15);
+	    textFont(fontReg)
       textAlign(LEFT, CENTER);
       
-      // console.log(labels)
+
+    
 push ()
       translate(jump + this.barWidth/2 , this.labelPadding);
       rotate(this.labelRotation);
@@ -75,18 +84,27 @@ push ()
 	  pop ()
     }
 
-    noFill();
-    //stroke(this.tickColour);
-    //strokeWeight(this.tickStrokeWeight);
+    
+    
+    //ticks
+    
+    // line(0,0,-10,0)
+   
     let tickGap = this.chartHeight / this.numTicks;
 
     for (let i = 0; i <= this.numTicks; i++) {
-      line(0, -1 * tickGap, -this.tickStrokeLength, -i * tickGap);
+      noFill();
+      stroke('#57CE60')
+      line(0, -i * tickGap, -this.tickStrokeLength, -i * tickGap);
+      
       noStroke();
-      //fill(this.tickTextColour);
-      Text("Emma", -this.tickPadding + -this.tickStrokeLength, -i * tickGap);
+      fill(this.tickTextColour);
+      textAlign(RIGHT, CENTER)
+      textSize(16)
+      text(maxValue/this.numTicks * i, -this.tickPadding + -this.tickStrokeLength, -i * tickGap);
     }
 
     pop();
   }
+  
 }

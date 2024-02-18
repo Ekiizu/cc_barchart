@@ -11,9 +11,9 @@ let canvasHeight = 600;
 
 // Colours
 let backgroundColour = "#2C2C2C";
-let axisColour = "57CE60";
-let axisThickness = 3;
-let barColour = "#57CE60";
+
+
+
 
 function preload() {
 	data = loadTable("data/Combined.csv", "csv", "header");
@@ -37,17 +37,45 @@ function setup() {
 		chartHeight: 400,
 		x: 100,
 		y: 500,
-		barWidth:30,
-		barColour: "#57CE60",
+
+		barWidth:20,
+	    barColour: "#57CE60",
+		barStrokeColour:"#57CE60",
+		barStrokeThickness: 2,
+		
+		yAxisValue:"Total",
+		xAxisLabel:"Age_Group",
+
+		
         axisColour: "#57CE60",
-		axisThickness: 3,
-		xAxisLabel:"Female",
-		labelPadding:1,
-		labelColour:"#50DFC3",
-		labelRotation:90
+        axisThickness: 3,
+		
+		labelPadding:8,
+		labelColour: "#FD6A94",
+		labelRotation:60,
+		
+
+		titleText: "EXAMPLE",
+		titleXOffset: -30,
+		titleYOffset: 50,
+		titleWidth: 300,
+		TitleSize: 20,
+
+
+		//tick
+		tickStrokeWeight:1,
+		tickStrokeLength:10,
+		tickColour: "#fafafa",
+		tickPadding: 10,
+		numTicks:5,
+		tickTextColour:"#FD6A94 ",
+		tickTextSize: 14,
+		tickDecimalPlace:  1,
 		
 
 	};
+
+	//second chart
 
 	barCharts.push(new BarChart(barChart01));
 }
