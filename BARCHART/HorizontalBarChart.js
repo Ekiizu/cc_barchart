@@ -67,7 +67,7 @@ class hBarChart {
         let jump = ( barGap * (i + 1)) + (this.barWidth * i);
         let colHeight = this.data[i][this.yAxisValue] * scale;
   
-        rect(0, -jump, -colHeight, this.barWidth);
+        rect(0, -jump, colHeight, this.barWidth);
   
         noStroke();
         fill(this.labelColour);
@@ -78,7 +78,7 @@ class hBarChart {
   
       
         push();
-        translate(colHeight + this.labelPadding, -jump - this.barWidth / 2);
+        translate(colHeight + this.labelPadding, -jump + this.barWidth / 2);
         rotate(this.labelRotation);
         text(labels[i], 0, 0);
         pop();
@@ -95,11 +95,11 @@ class hBarChart {
   for (let i = 0; i <= this.numTicks; i++) {
         noFill();
         stroke('#57CE60');
-        line(i * tickGap, 0, i * tickGap, this.tickStrokeLength);
+        line(0, -i * tickGap, -this.tickStrokeLength, -i * tickGap);
 
         noStroke();
         fill(this.tickTextColour);
-        textAlign(CENTER, TOP);
+        textAlign(RIGHT, CENTER);
         textSize(16);
         text(maxValue / this.numTicks * i, i * tickGap, this.tickPadding + this.tickStrokeLength);
     }
