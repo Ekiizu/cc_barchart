@@ -136,13 +136,13 @@ function setup() {
 						y: 1100,
 				
 						barWidth:20,
-						barColour: "#57CE60",
+						barColour:  ["#57CE60", "#96DED1"],
 						barStrokeColour:"#57CE60",
 						barStrokeThickness: 2,
 						
-						yAxisValue:"Total",
+						yAxisValue: ["Female", "Male"],
 						xAxisLabel:"Age_Group",
-						zAxisValue:"Female",
+						
 				
 						
 						axisColour: "#57CE60",
@@ -191,7 +191,7 @@ function setup() {
 						
 						yAxisValue:"Total",
 						xAxisLabel:"Age_Group",
-						zAxisValue:"Female",
+						
 				
 						
 						axisColour: "#57CE60",

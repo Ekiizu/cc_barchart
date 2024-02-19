@@ -4,7 +4,7 @@ class sBarChart {
     this.data = obj.data;
     this.yAxisValue = obj.yAxisValue;
     this.xAxisLabel = obj.xAxisLabel;
-    this.zAxisValue = obj.zAxisValue;
+    
 
     //position and size
     this.x = obj.x;
@@ -44,6 +44,7 @@ class sBarChart {
   }
 
   render() {
+    console.log(this.data)
     push();
     translate(this.x, this.y);
 
@@ -54,78 +55,64 @@ class sBarChart {
     line(0, 0, this.chartWidth, 0);
     line(0, 0, 0, -this.chartHeight);
 
-    fill(this.barColour);
-    stroke(this.barStrokeColour);
-    strokeWeight(this.barStrokeThickness)
-  
-
-    let barGap =(this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
-    let maxValue = max(this.data.map((x) => x[this.yAxisValue]));
+    let maxValue =  max(this.data.map((x) => x[this.yAxisValue]));
     let scale = this.chartHeight / maxValue;
-    let labels = this.data.map(item => item[this.xAxisLabel]);
-	  // console.log(scale);
-    for (let i = 0; i < this.numBars; i++) {
-      let xPos = barGap * (i + 1) + this.barWidth * i;
-      let yPos = 0; //starting position for the first bars
-      let zPos = 0; //starting position for the second bars
+    let labels = this.data.map((item) => item[this.xAxisLabel]);
 
-      for (let j = 0; j < this.yAxisValue.length; j++) {
-        let value = this.data[i][this.yAxisValue[j]];
-        let colHeight = value * scale;
+    let gap = (this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
 
-        fill("#96DED1");
-        rect(xPos - this.barWidth / 2, yPos, this.barWidth, -colHeight);
-        yPos -= colHeight; //updating position for the next bar 
-      }
+    for (let i = 0; i < this.data.length; i++) {
+        let xPos = gap + i * (this.barWidth + gap);
+        let yPos = 0;
 
-      //repeat
-      for (let j = 0; j < this.zAxisValue.length; j++) {
-        let value = this.data[i][this.zAxisValue[j]];
-        let colHeight = value * scale;
+        // if (this.data[i][this.yAxisValue]) {
 
-        fill("#966781");
-        rect(xPos - this.barWidth / 2, zPos, this.barWidth, -colHeight);
-        zPos -= colHeight;
-      }
-      
+        for (let j = 0; j < this.data[i][this.yAxisValue].length; j++) {
+            let stackedHeight = this.data[i][this.yAxisValue][j] * scale;
 
-      noStroke();
-      fill(this.labelColour);
-	    textSize (15);
-	    textFont(fontReg)
-      textAlign(LEFT, CENTER);
-      
+            // Assign different colors to different parts of the stacked bar
+            if (j === 0) {
+                fill('#FF0000');
+            } else if (j === 1) {
+                fill('#00FF00');
+            } else if (j === 2) {
+                fill('#0000FF');
+            } else {
+                fill('#FFFF00');
+            }
 
-    
-push ()
-      translate(xPos + this.barWidth/2 , this.labelPadding);
-      rotate(this.labelRotation);
-      text(labels[i], 0, 0);
-	  pop ()
+            // Draw the stacked bar
+            rect(xPos, yPos, this.barWidth, -stackedHeight);
+            yPos -= stackedHeight; // Update position for the next stack category
+        }
+  //  } else {
+  //           console.error(`Missing ${this.yAxisValue} property for data item at index ${i}`);
+  //       }
+        // Draw labels
+        noStroke();
+        fill(this.labelColour);
+        textSize(15);
+        textAlign(LEFT, CENTER);
+        text(labels[i], xPos + this.barWidth / 2, this.labelPadding);
     }
 
-    
-    
-    //ticks
-    
-    // line(0,0,-10,0)
-   
+    // Draw ticks
     let tickGap = this.chartHeight / this.numTicks;
-
     for (let i = 0; i <= this.numTicks; i++) {
-      noFill();
-      stroke('#57CE60')
-      line(0, -i * tickGap, -this.tickStrokeLength, -i * tickGap);
-      
-      noStroke();
-      fill(this.tickTextColour);
-      textAlign(RIGHT, CENTER)
-      textSize(16)
-      text(maxValue/this.numTicks * i, -this.tickPadding + -this.tickStrokeLength, -i * tickGap);
+        noFill();
+        stroke(this.tickColour);
+        line(0, -i * tickGap, -this.tickStrokeLength, -i * tickGap);
+        noStroke();
+        fill(this.tickTextColour);
+        textAlign(RIGHT, CENTER);
+        textSize(16);
+        text(maxValue / this.numTicks * i, -this.tickPadding - this.tickStrokeLength, -i * tickGap);
     }
 
     pop();
-  }
+}
+
+
   
 }
 
