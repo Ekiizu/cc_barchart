@@ -16,7 +16,7 @@ let backgroundColour = "#2C2C2C";
 
 
 function preload() {
-	data = loadTable("data/Combined.csv", "csv", "header");
+	// data = loadTable("data/Combined.csv", "csv", "header");
 	data = loadTable("data/barchart.csv", "csv", "header");
 	fontLight = loadFont('fonts/Montserrat-Thin.ttf');
 	fontReg = loadFont('fonts/Montserrat-Medium.ttf');
@@ -137,11 +137,11 @@ function setup() {
 						y: 1100,
 				
 						barWidth:25,
-						barColour:  "#879CE9",
+						barColours:  ["#879CE9","#c2ed8c",],
 						barStrokeColour:"#879CE9",
 						barStrokeThickness: 2,
 						
-						yAxisValue: "Female",
+						yAxisValue: ["Female", "Male"],
 						xAxisLabel:"Age_Group",
 						
 				
@@ -150,7 +150,7 @@ function setup() {
 						axisThickness: 3,
 						
 						labelPadding:8,
-						labelColour: "#879CE9",
+						labelColour:  ["#879CE9","#f1f1f1"],
 						labelRotation:60,
 						
 				

@@ -14,7 +14,7 @@ class sBarChart {
   
       //bars
       this.barWidth = obj.barWidth;
-      this.barColour = obj.barColour;
+      this.barColours = obj.barColours;
       this.numBars = obj.data.length;
       this.barStrokeColour = obj.barStrokeColour;
       this.barStrokeThickness = obj.barStrokeThickness;
@@ -41,17 +41,29 @@ class sBarChart {
       this.labelTextSize = obj.labelTextSize;
       this.labelAlignment = obj.labelAlignment;
 
-      
-      // this.maxValue = this.calculatingTotal();
-      // let maxValue = max(this.data.map((x) => x.Total))
-      // let scale = this.chartHeight / max(this.data.map((x) => x.Total));
-    // }
-    // let maxValue = max(this.data.map((x) => x.Total))
-    // let scale = this.chartHeight / max(this.data.map((x) => x.Total));
-    // calculatingTotal (){
 
+      this.maxValue = this.calculatingTotal();
+     
+      
     }
+    
+  
+ 
+      calculatingTotal() {
+        let maxValues = this.data.map(item => {
+          let male = parseFloat(item.Male); // Parse "Male" property as float
+          let female = parseFloat(item.Female); // Parse "Female" property as float
+          let sum = male + female;
+          console.log("Sum:", sum);
+          return sum;
+      });
+      console.log("Max Values:", maxValues);
+      return Math.max(...maxValues);
+  }
+
+    
     render() {
+      // console.log(data);
       push();
       translate(this.x, this.y);
   
@@ -62,28 +74,40 @@ class sBarChart {
       line(0, 0, this.chartWidth, 0);
       line(0, 0, 0, -this.chartHeight);
   
-      fill(this.barColour);
+      noFill();
       stroke(this.barStrokeColour);
       strokeWeight(this.barStrokeThickness)
     
-  
-      let barGap =(this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
+      let barGap = (this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
 
-        let labels = this.data.map((x) => x[this.xAxisLabel]);
-        // console.log(scale);
+      let labels = this.data.map(item => item[this.xAxisLabel]);
+
       for (let i = 0; i < this.numBars; i++) {
+          let jump = barGap * (i + 1) + this.barWidth * i;
+          let maleHeight = (this.data[i].Male / this.maxValue) * this.chartHeight;
+          // console.log(maleHeight)
+          // console.log(this.barColours);
+          fill(this.barColours[0]); // Male segment color
+          rect(jump, 0, this.barWidth, -maleHeight);
+      }
 
+      for (let i = 0; i < this.numBars; i++) {
+          let jump = barGap * (i + 1) + this.barWidth * i;
+          let femaleHeight = (this.data[i].Female / this.maxValue) * this.chartHeight;
 
+          fill(this.barColours[1]); // Female segment color
+          rect(jump, -this.data[i].Male, this.barWidth, -femaleHeight);
+      }
         
-
-
-        let jump = ( barGap * (i + 1)) + (this.barWidth * i);
-        let colHeight = this.data[i][this.yAxisValue] * scale;
+     
+      for (let i = 0; i < this.numBars; i++) {
+        let jump = barGap * (i + 1) + this.barWidth * i;
+        // let colHeight = this.data[i][this.yAxisValue] * scale;
   
-        rect(jump, 0, this.barWidth, -colHeight);
+        // rect(jump, 0, this.barWidth, -colHeight);
   
         noStroke();
-        fill(this.labelColour);
+        fill("#f1f1f1");
           textSize (15);
           textFont(fontReg)
         textAlign(LEFT, CENTER);
@@ -114,20 +138,16 @@ class sBarChart {
         fill(this.tickTextColour);
         textAlign(RIGHT, CENTER)
         textSize(16)
-        text(maxValue/this.numTicks * i, -this.tickPadding + -this.tickStrokeLength, -i * tickGap);
+        text(this.maxValue /this.numTicks * i, -this.tickPadding + -this.tickStrokeLength, -i * tickGap);
       }
       
 
-    //   textSize(30)
-    //   fill(this.labelColour)
-    //   textFont(fontReg)
-    //   text(Emma,0,0,0)
   
       pop();
     }
     
     
-  }
+  }  
 
 
   
