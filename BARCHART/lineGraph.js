@@ -60,7 +60,7 @@ class lBarChart {
 
         // Calculate maximum value for scaling
         let maxValue = max(this.data.map((x) => x[this.yAxisValue]));
-        let xStep = this.chartWidth / (this.data.length - 1); // Calculate step size for x-axis
+        let xJump = this.chartWidth / (this.data.length - 1); // Calculate jump size for x-axis
 
         // Draw lines connecting data points
         noFill();
@@ -68,7 +68,7 @@ class lBarChart {
         strokeWeight(this.lineThickness);
         beginShape();
         for (let i = 0; i < this.data.length; i++) {
-            let xPos = i * xStep;
+            let xPos = i * xJump;
             let yPos = map(this.data[i][this.yAxisValue], 0, maxValue, 0, -this.chartHeight);
             vertex(xPos, yPos);
         }
@@ -77,8 +77,8 @@ class lBarChart {
         // Draw points at data points
         fill(this.pointColour);
         noStroke();
-        for (let i = 0; i < this.data.length; i++) {
-            let xPos = i * xStep;
+        for (let i = 0; i < this.numBars; i++) {
+            let xPos = i * xJump;
             let yPos = map(this.data[i][this.yAxisValue], 0, maxValue, 0, -this.chartHeight);
             ellipse(xPos, yPos, this.pointSize);
         }
@@ -92,16 +92,21 @@ class lBarChart {
             noStroke();
             fill(this.tickTextColour);
             textAlign(RIGHT, CENTER);
+            textFont(fontReg)
             textSize(this.tickTextSize);
-            text(nf(maxValue / this.numTicks * i, this.tickNumRounding, this.tickDecimalPlaces), -this.tickPadding, tickY); // Tick label
+            text(nf(maxValue / this.numTicks * i, this.tickNumRounding, this.tickDecimalPlaces), -this.tickPadding, tickY); 
+            
         }
 
         // Draw labels on the x-axis
-        textAlign(this.labelAlignment);
-        textSize(this.labelTextSize);
+        noStroke();
+        textAlign(LEFT,CENTER);
+        textSize(14);
         fill(this.labelColour);
-        for (let i = 0; i < this.data.length; i++) {
-            let xPos = i * xStep;
+
+        
+        for (let i = 0; i < this.numBars; i++) {
+            let xPos = i * xJump;
             let label = this.data[i][this.xAxisLabel];
             push();
             translate(xPos, this.labelPadding);

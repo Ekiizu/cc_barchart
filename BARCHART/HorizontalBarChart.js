@@ -14,7 +14,7 @@ class hBarChart {
   
       //bars
       this.barWidth = obj.barWidth;
-      this.barColour = obj.barColour;
+      this.barColours = obj.barColours;
       this.numBars = obj.data.length;
       this.barStrokeColour = obj.barStrokeColour;
       this.barStrokeThickness = obj.barStrokeThickness;
@@ -52,10 +52,11 @@ class hBarChart {
   
       line(0, 0, this.chartWidth, 0);
       line(0, 0, 0, -this.chartHeight);
-  
-      fill(this.barColour);
-      stroke(this.barStrokeColour);
-      strokeWeight(this.barStrokeThickness)
+      
+      //for some reason my bar colours do not work but my label colours work for my bar colours
+      // fill(this.barColours[i % this.barColours.length]);
+      // stroke(this.barStrokeColour);
+      // strokeWeight(this.barStrokeThickness)
     
   
       let barGap =(this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
@@ -64,13 +65,14 @@ class hBarChart {
         let labels = this.data.map((x) => x[this.xAxisLabel]);
         // console.log(scale);
       for (let i = 0; i < this.numBars; i++) {
-        let jump = ( barGap * (i + 1)) + (this.barWidth * i);
+        let jump = ( barGap * (i + 4)) + (this.barWidth * i);
         let colHeight = this.data[i][this.yAxisValue] * scale;
   
         rect(0, -jump, colHeight, this.barWidth);
   
         noStroke();
-        fill(this.labelColour);
+        // console.log(this.labelColour)
+        fill(this.labelColour[i % this.labelColour.length]);
           textSize (15);
           textFont(fontReg)
         textAlign(LEFT, CENTER);
@@ -89,22 +91,26 @@ class hBarChart {
       //ticks
       
       // line(0,0,-10,0)
-     
-      let tickGap = this.chartWidth / this.numTicks;
-  
-  for (let i = 0; i <= this.numTicks; i++) {
-        noFill();
-        stroke('#57CE60');
-        line(0, -i * tickGap, -this.tickStrokeLength, -i * tickGap);
+      let tickGap = this.chartHeight / this.numTicks; 
 
-        noStroke();
-        fill(this.tickTextColour);
-        textAlign(RIGHT, CENTER);
-        textSize(16);
-        text(maxValue / this.numTicks * i, i * tickGap, this.tickPadding + this.tickStrokeLength);
-    }
-
-    pop();
+      for (let i = 0; i <= this.numTicks; i++) {
+          noFill();
+          
+          stroke(this.tickColour)
+          let xPos = i * tickGap;
+          // translate(-(i*(-this.chartHeight/this.numTicks)) / 3,2 ); // Moving the origin to the x-axis and moving the tick position (DID NOT WORK)
+          line(xPos, 0, xPos, this.tickStrokeLength); // Drawing a line for each tick,
+      
+          noStroke();
+          fill(this.tickTextColour);
+          textAlign(CENTER, TOP); 
+          textSize(16);
+          text((maxValue / this.numTicks * i).toFixed(this.tickDecimalPlaces), xPos, this.tickPadding); // Reversing tick labels and positioning??
+      }
+      
+      pop();
+      
+      
     }
     
   }

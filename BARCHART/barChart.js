@@ -94,7 +94,7 @@ push ()
 
     for (let i = 0; i <= this.numTicks; i++) {
       noFill();
-      stroke('#57CE60')
+      stroke('#C2ED8C')
       line(0, -i * tickGap, -this.tickStrokeLength, -i * tickGap);
       
       noStroke();

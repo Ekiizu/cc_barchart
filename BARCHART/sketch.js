@@ -7,7 +7,7 @@ let fontReg;
 let fontBold;
 
 let canvasWidth = 1800;
-let canvasHeight = 1200;
+let canvasHeight = 1250;
 
 // Colours
 let backgroundColour = "#2C2C2C";
@@ -17,6 +17,7 @@ let backgroundColour = "#2C2C2C";
 
 function preload() {
 	data = loadTable("data/Combined.csv", "csv", "header");
+	data = loadTable("data/barchart.csv", "csv", "header");
 	fontLight = loadFont('fonts/Montserrat-Thin.ttf');
 	fontReg = loadFont('fonts/Montserrat-Medium.ttf');
 }
@@ -43,20 +44,20 @@ function setup() {
 		x: 100,
 		y: 500,
 
-		barWidth:20,
-	    barColour: "#57CE60",
-		barStrokeColour:"#57CE60",
-		barStrokeThickness: 2,
+		barWidth:25,
+	    barColour: "",
+		barStrokeColour:"#f1f1f1",
+		barStrokeThickness: 3,
 		
-		yAxisValue:"Total",
+		yAxisValue:"Female",
 		xAxisLabel:"Age_Group",
 
 		
-        axisColour: "#57CE60",
+        axisColour: "#C2ED8C",
         axisThickness: 3,
 		
 		labelPadding:8,
-		labelColour: "#FD6A94",
+		labelColour: "#f1f1f1",
 		labelRotation:60,
 		
 
@@ -70,10 +71,10 @@ function setup() {
 		//tick
 		tickStrokeWeight:1,
 		tickStrokeLength:10,
-		tickColour: "#fafafa",
+		tickColour: "#f1f1f1",
 		tickPadding: 10,
 		numTicks:5,
-		tickTextColour:"#FD6A94 ",
+		tickTextColour:"#f1f1f1",
 		tickTextSize: 14,
 		tickDecimalPlace:  1,
 		
@@ -90,20 +91,20 @@ function setup() {
 			x: 600,
 			y: 500,
 	
-			barWidth:20,
-			barColour: "#57CE60",
+			barWidth:25,
+			barColours: ["#57CE60", "#879CE9", "#FD6A94 "], //array of colours 
 			barStrokeColour:"#57CE60",
-			barStrokeThickness: 2,
+			barStrokeThickness: 3,
 			
 			yAxisValue:"Total",
 			xAxisLabel:"Age_Group",
 	
 			
-			axisColour: "#57CE60",
+			axisColour: "#f1f1f1",
 			axisThickness: 3,
 			
 			labelPadding:8,
-			labelColour: "#879CE9",
+			labelColour:  ["#FF3176",  "#c2ed8c", "#a9d4ff" , "#f1f1f1"],
 			labelRotation:0,
 			
 	
@@ -117,10 +118,10 @@ function setup() {
 			//tick
 			tickStrokeWeight:1,
 			tickStrokeLength:10,
-			tickColour: "#fafafa",
+			tickColour: "#f1f1f1",
 			tickPadding: 10,
 			numTicks:5,
-			tickTextColour:"#879CE9",
+			tickTextColour:"#f1f1f1",
 			tickTextSize: 14,
 			tickDecimalPlace:  1,
 			
@@ -135,21 +136,21 @@ function setup() {
 						x: 100,
 						y: 1100,
 				
-						barWidth:20,
-						barColour:  ["#57CE60", "#96DED1"],
-						barStrokeColour:"#57CE60",
+						barWidth:25,
+						barColour:  "#879CE9",
+						barStrokeColour:"#879CE9",
 						barStrokeThickness: 2,
 						
-						yAxisValue: ["Female", "Male"],
+						yAxisValue: "Female",
 						xAxisLabel:"Age_Group",
 						
 				
 						
-						axisColour: "#57CE60",
+						axisColour: "#f1f1f1",
 						axisThickness: 3,
 						
 						labelPadding:8,
-						labelColour: "#96DED1",
+						labelColour: "#879CE9",
 						labelRotation:60,
 						
 				
@@ -163,7 +164,7 @@ function setup() {
 						//tick
 						tickStrokeWeight:1,
 						tickStrokeLength:10,
-						tickColour: "#fafafa",
+						tickColour: "#879CE9",
 						tickPadding: 10,
 						numTicks:5,
 						tickTextColour:"#879CE9",
@@ -194,11 +195,11 @@ function setup() {
 						
 				
 						
-						axisColour: "#57CE60",
+						axisColour: "#f1f1f1",
 						axisThickness: 3,
 						
-						labelPadding:90,
-						labelColour:  "#FD6A94",
+						labelPadding:8,
+						labelColour:   ["#FF3176",  "#c2ed8c", "#a9d4ff" , "#f1f1f1"],
 						labelRotation:60,
 						
 				
@@ -212,23 +213,23 @@ function setup() {
 						//tick
 						tickStrokeWeight:1,
 						tickStrokeLength:10,
-						tickColour: "#fafafa",
-						tickPadding: 10,
+						tickColour: "#f1f1f1",
+						tickPadding: 20,
 						numTicks:5,
-						tickTextColour:"#FD6A94",
+						tickTextColour:"#FF3176",
 						tickTextSize: 14,
 						tickDecimalPlace:  1,
 
 						//lines
-						lineColour:  "#FD6A94",
-						lineThickness: 2,
-						pointSize: 8,
-						pointColour: "#96DED1",
+						lineColour:  "#c2ed8c",
+						lineThickness: 4,
+						pointSize: 10,
+						pointColour: "#f1f1f1"
 						
 				
 					};
 
-								//fourth barchart
+								//fifth barchart
 								let barChart05 = {
 									data: cleanData,
 									chartWidth: 400,
@@ -243,7 +244,7 @@ function setup() {
 									
 									yAxisValue:"Total",
 									xAxisLabel:"Age_Group",
-									zAxisValue:"Female",
+									
 							
 									
 									axisColour: "#57CE60",
@@ -287,7 +288,7 @@ function setup() {
 	barCharts.push(new hBarChart(barChart02));
 	barCharts.push(new sBarChart(barChart03));
 	barCharts.push(new lBarChart(barChart04));
-	barCharts.push(new eBarChart(barChart05));
+	// barCharts.push(new eBarChart(barChart05));
 }
 
 function draw() {
