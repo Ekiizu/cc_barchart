@@ -55,17 +55,17 @@ class sBarChart {
     
   
  
-      calculatingTotal() {
-        let maxValues = this.data.map(item => {
-          let male = parseFloat(item.Male); // Parse "Male" property as float
-          let female = parseFloat(item.Female); // Parse "Female" property as float //ONLY WAY I GOT IT TO WORK SO FAR
-          let sum = male + female;
-          // console.log("Sum:", sum);
-          return sum;
-      });
-      console.log("Max Values:", maxValues);
-      return Math.max(...maxValues);
-  }
+    calculatingTotal() {
+      let maxValues = this.data.map(item => {
+        let male = parseFloat(item.Male); // Parse "Male" property as float
+        let female = parseFloat(item.Female); // Parse "Female" property as float //ONLY WAY I GOT IT TO WORK SO FAR
+        let sum = male + female;
+        // console.log("Sum:", sum);
+        return sum;
+    });
+    console.log("Max Values:", maxValues);
+    return Math.max(...maxValues);
+}
 
     
     render() {
@@ -73,10 +73,10 @@ class sBarChart {
       push();
       translate(this.x, this.y);
 
-          // Render Title
+    textFont(fontReg) 
     textAlign(LEFT);
     textSize(this.titleSize);
-    fill(270); // Change color as per your requirement
+    fill(270);
     text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth);
   
       noFill();
@@ -94,22 +94,35 @@ class sBarChart {
 
       let labels = this.data.map(item => item[this.xAxisLabel]);
 
-      for (let i = 0; i < this.numBars; i++) {
-          let jump = barGap * (i + 1) + this.barWidth * i;
-          let maleHeight = (this.data[i].Male / this.maxValue) * this.chartHeight;
-          // console.log(maleHeight)
-          // console.log(this.barColours);
-          fill(this.barColours[0]); // Male segment color
-          rect(jump, 0, this.barWidth, -maleHeight);
+      for (let j = 0; j < this.yAxisValue.length; j++) {
+        let currentYAxis = this.yAxisValue[j];
+        let barGap = (this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
+
+        for (let i = 0; i < this.numBars; i++) {
+            let jump = barGap * (i + 1) + this.barWidth * i;
+            let height = (this.data[i][currentYAxis] / this.maxValue) * this.chartHeight;
+            
+            fill(this.barColours[j]); // Use different color for each yAxisValue
+            rect(jump, 0, this.barWidth, -height);
+        }
       }
 
-      for (let i = 0; i < this.numBars; i++) {
-          let jump = barGap * (i + 1) + this.barWidth * i;
-          let femaleHeight = (this.data[i].Female / this.maxValue) * this.chartHeight;
+      // for (let i = 0; i < this.numBars; i++) {
+      //     let jump = barGap * (i + 1) + this.barWidth * i;
+      //     let maleHeight = (this.data[i][this.yAxisValue] / this.maxValue) * this.chartHeight;
+      //     // console.log(maleHeight)
+      //     // console.log(this.barColours);
+      //     fill(this.barColours[0]); // Male segment color
+      //     rect(jump, 0, this.barWidth, -maleHeight);
+      // }
 
-          fill(this.barColours[1]); // Female segment color
-          rect(jump, -this.data[i].Male, this.barWidth, -femaleHeight);
-      }
+      // for (let i = 0; i < this.numBars; i++) {
+      //     let jump = barGap * (i + 1) + this.barWidth * i;
+      //     let femaleHeight = (this.data[i][this.yAxisValue] / this.maxValue) * this.chartHeight;
+
+      //     fill(this.barColours[1]); // Female segment color
+      //     rect(jump, -this.data[i][this.yAxisValue], this.barWidth, -femaleHeight);
+      // }
         
      
       for (let i = 0; i < this.numBars; i++) {
@@ -134,10 +147,7 @@ class sBarChart {
       }
   
       
-      
-      //ticks
-      
-      // line(0,0,-10,0)
+
      
       let tickGap = this.chartHeight / this.numTicks;
   
@@ -152,6 +162,22 @@ class sBarChart {
         textSize(16)
         text(this.maxValue /this.numTicks * i, -this.tickPadding + -this.tickStrokeLength, -i * tickGap);
       }
+
+      let legendX = 160;
+      let legendY = 100; 
+      let legendItemWidth = 30;
+      let legendItemHeight = 20; 
+  
+      for (let j = 0; j < this.yAxisValue.length; j++) {
+          fill(this.barColours[j]);
+          rect(legendX + j * (legendItemWidth+ 30), legendY, legendItemWidth, legendItemHeight); //+20 to add some padding in between the boxes
+
+          fill(255)
+          textAlign(CENTER);
+          textSize(15); 
+          text(this.yAxisValue[j], legendX + j * (legendItemWidth + 30) + legendItemWidth / 2 , legendY + legendItemHeight + 20);
+      }
+  
       
 
   

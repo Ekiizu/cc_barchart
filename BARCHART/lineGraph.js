@@ -59,12 +59,13 @@ class lBarChart {
         push();
         translate(this.x, this.y);
 
+        textFont(fontReg)
         textAlign(LEFT);
         textSize(this.titleSize);
-        fill(270); // Change color as per your requirement
+        fill(270); 
         text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth);
 
-        // Draw x and y axes
+        
         stroke(this.axisColour);
         strokeWeight(this.axisThickness);
         line(0, 0, this.chartWidth, 0); 
@@ -72,9 +73,9 @@ class lBarChart {
 
        
         let maxValue = max(this.data.map(item => Math.max(item[this.yAxisValue[0]], item[this.yAxisValue[1]])));
-        let xJump = this.chartWidth / (this.data.length - 1); // Calculate jump size for x-axis
+        let xJump = this.chartWidth / (this.data.length - 1); 
 
-        // Draw first line connecting data points
+        
         noFill();
         stroke(this.lineColour[0]); 
         strokeWeight(this.lineThickness);
@@ -130,6 +131,30 @@ class lBarChart {
             text(nf(maxValue / this.numTicks * i, this.tickNumRounding, this.tickDecimalPlaces), -this.tickPadding, tickY);// SOMETHING WRONG HERE
         }
 
+        let legendX = 160;
+        let legendY = 100; 
+        let legendItemWidth = 30;
+        let legendItemHeight = 20; 
+      
+        for (let j = 0; j < this.yAxisValue.length; j++) {
+            // console.log(this.barColour)
+            // console.log(this.lineColour)
+            fill(this.lineColour[j]);
+            rect(legendX + j * (legendItemWidth+ 30), legendY, legendItemWidth, legendItemHeight); //+20 to add some padding in between the boxes
+  
+            fill(255)
+            textAlign(CENTER);
+            textSize(15); 
+            text(this.yAxisValue[j], legendX + j * (legendItemWidth + 30) + legendItemWidth / 2 , legendY + legendItemHeight + 20);
+        }
+
+        
+
+
+        
+
+        
+
         // Draw labels on the x-axis
         noStroke();
         textAlign(LEFT, CENTER);
@@ -144,7 +169,15 @@ class lBarChart {
             rotate(this.labelRotation);
             text(label, 0, 0);
             pop();
+
+
+            
         }
+ 
+
+        
+        
+        
 
         pop();
     }

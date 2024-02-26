@@ -51,12 +51,14 @@ class BarChart {
 	
   }
 
+  //Vetical barchart
+
   render() {
 
     push();
     translate(this.x, this.y);
     
-   
+    textFont(fontReg)
     textAlign(LEFT);
     textSize(this.titleSize);
     fill(270); 

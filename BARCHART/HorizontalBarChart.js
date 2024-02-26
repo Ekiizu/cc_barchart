@@ -51,7 +51,8 @@ class hBarChart {
     render() {
       push();
       translate(this.x, this.y);
-
+      
+      textFont(fontReg)
       textAlign(LEFT);
       textSize(this.titleSize);
       fill(270); 
@@ -64,7 +65,7 @@ class hBarChart {
       line(0, 0, this.chartWidth, 0);
       line(0, 0, 0, -this.chartHeight);
       
-      //for some reason my bar colours do not work but my label colours work for my bar colours
+      //for some reason my bar colours do not work but my label colours work for my bar colours // FIXED 
       // fill(this.barColours[i % this.barColours.length]);
       // stroke(this.barStrokeColour);
       // strokeWeight(this.barStrokeThickness)
@@ -110,7 +111,7 @@ class hBarChart {
           stroke(this.tickColour)
           let xPos = i * tickGap;
           // translate(-(i*(-this.chartHeight/this.numTicks)) / 3,2 ); // Moving the origin to the x-axis and moving the tick position (DID NOT WORK)
-          line(xPos, 0, xPos, this.tickStrokeLength); // Drawing a line for each tick
+          line(xPos, 0, xPos, this.tickStrokeLength); // Draws a line for each tick
       
           noStroke();
           fill(this.tickTextColour);

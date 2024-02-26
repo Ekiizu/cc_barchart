@@ -50,14 +50,15 @@ class eBarChart {
           this.titleSize = obj.titleSize;
       
     }
-  
+    //Vertical barchart with different data
     render() {
   
       push();
       translate(this.x, this.y);
       
-      
+      textFont(fontReg)
       textAlign(LEFT);
+      
       textSize(this.titleSize);
       fill(270); 
       text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth); 
@@ -103,9 +104,7 @@ class eBarChart {
   
       
       
-      //ticks
       
-      // line(0,0,-10,0)
      
       let tickGap = this.chartHeight / this.numTicks;
   
