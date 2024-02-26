@@ -40,11 +40,28 @@ class BarChart {
     this.labelRotation = obj.labelRotation;
     this.labelTextSize = obj.labelTextSize;
     this.labelAlignment = obj.labelAlignment;
+
+    //text 
+
+    this.titleText = obj.titleText;
+    this.titleXOffset = obj.titleXOffset;
+		this.titleYOffset = obj.titleYOffset;
+		this.titleWidth = obj.titleWidth;
+		this.titleSize = obj.titleSize;
+	
   }
 
   render() {
+
     push();
     translate(this.x, this.y);
+    
+   
+    textAlign(LEFT);
+    textSize(this.titleSize);
+    fill(270); 
+    text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth); 
+   
 
     noFill();
     stroke(this.axisColour);

@@ -41,6 +41,12 @@ class sBarChart {
       this.labelTextSize = obj.labelTextSize;
       this.labelAlignment = obj.labelAlignment;
 
+      this.titleText = obj.titleText;
+      this.titleXOffset = obj.titleXOffset;
+      this.titleYOffset = obj.titleYOffset;
+      this.titleWidth = obj.titleWidth;
+      this.titleSize = obj.titleSize;
+
 
       this.maxValue = this.calculatingTotal();
      
@@ -52,9 +58,9 @@ class sBarChart {
       calculatingTotal() {
         let maxValues = this.data.map(item => {
           let male = parseFloat(item.Male); // Parse "Male" property as float
-          let female = parseFloat(item.Female); // Parse "Female" property as float
+          let female = parseFloat(item.Female); // Parse "Female" property as float //ONLY WAY I GOT IT TO WORK SO FAR
           let sum = male + female;
-          console.log("Sum:", sum);
+          // console.log("Sum:", sum);
           return sum;
       });
       console.log("Max Values:", maxValues);
@@ -66,6 +72,12 @@ class sBarChart {
       // console.log(data);
       push();
       translate(this.x, this.y);
+
+          // Render Title
+    textAlign(LEFT);
+    textSize(this.titleSize);
+    fill(270); // Change color as per your requirement
+    text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth);
   
       noFill();
       stroke(this.axisColour);

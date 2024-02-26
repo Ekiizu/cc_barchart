@@ -61,11 +61,11 @@ function setup() {
 		labelRotation:60,
 		
 
-		titleText: "EXAMPLE",
-		titleXOffset: -30,
-		titleYOffset: 50,
-		titleWidth: 300,
-		TitleSize: 20,
+		titleText: "Number of Disabled Women by Age Group",
+		titleXOffset: -160,
+		titleYOffset: 10,
+		titleWidth: 400,
+		titleSize: 20,
 
 
 		//tick
@@ -81,14 +81,64 @@ function setup() {
 
 	};
 
+	//second barchart
+	let barChart02 = {
+		data: cleanData,
+		chartWidth: 400,
+		chartHeight: 400,
+		x: 650,
+		y: 500,
+
+		barWidth:25,
+		barColour: "",
+		barStrokeColour:"#f1f1f1",
+		barStrokeThickness: 3,
+		
+		yAxisValue:"Total",
+		xAxisLabel:"Year",
+
+		
+		axisColour: "#879CE9", 
+		axisThickness: 3,
+		
+		labelPadding:8,
+		labelColour: "#f1f1f1",
+		labelRotation:60,
+		
+
+		titleText: "Number of Disabled People by Year ",
+		titleXOffset: -160,
+		titleYOffset: 10,
+		titleWidth: 400,
+		titleSize: 20,
+
+
+		//tick
+		tickStrokeWeight:1,
+		tickStrokeLength:10,
+		tickColour: "#f1f1f1",
+		tickPadding: 10,
+		numTicks:5,
+		tickTextColour:"#f1f1f1",
+		tickTextSize: 14,
+		tickDecimalPlace:  1,			
+		//lines
+		lineColour:  "#FD6A94",
+		lineThickness: 2,
+		pointSize: 8,
+		pointColour: "#96DED1",
+		
+
+	};
+
 	
 	
-        //secondchart
-		let barChart02 = {
+        //third chart
+		let barChart03 = {
 			data: cleanData,
 			chartWidth: 400,
 			chartHeight: 400,
-			x: 600,
+			x: 1200,
 			y: 500,
 	
 			barWidth:25,
@@ -106,13 +156,16 @@ function setup() {
 			labelPadding:8,
 			labelColour:  ["#FF3176",  "#c2ed8c", "#a9d4ff" , "#f1f1f1"],
 			labelRotation:0,
+
+
+			titleText: "Total of Disabled People by Age Group",
+			titleXOffset: -160,
+			titleYOffset: 10,
+			titleWidth: 400,
+			titleSize: 20,
 			
 	
-			titleText: "EXAMPLE",
-			titleXOffset: -30,
-			titleYOffset: 50,
-			titleWidth: 300,
-			TitleSize: 20,
+			
 	
 	
 			//tick
@@ -127,9 +180,20 @@ function setup() {
 			
 	
 		};
+
+
+
+				
 	
-					//third barchart
-					let barChart03 = {
+					
+
+
+
+
+				
+
+					//fourth barchart
+					let barChart04 = {
 						data: cleanData,
 						chartWidth: 400,
 						chartHeight: 400,
@@ -154,11 +218,11 @@ function setup() {
 						labelRotation:60,
 						
 				
-						titleText: "EXAMPLE",
-						titleXOffset: -30,
-						titleYOffset: 50,
-						titleWidth: 300,
-						TitleSize: 20,
+						titleText: "Male and Female Disablitys by Age Group",
+						titleXOffset: -160,
+						titleYOffset: 10,
+						titleWidth: 400,
+						titleSize: 20,
 				
 				
 						//tick
@@ -174,121 +238,114 @@ function setup() {
 				
 					};
 
+						//fifth barchart
+						let barChart05 = {
+							data: cleanData,
+							chartWidth: 400,
+							chartHeight: 400,
+							x: 600,
+							y: 1100,
+					
+							barWidth:20,
+							barColour: "#57CE60",
+							barStrokeColour:"#57CE60",
+							barStrokeThickness: 4,
+							
+							yAxisValue: ["Female", "Male"],
+							xAxisLabel:"Age_Group",
+							
+					
+							
+							axisColour: "#f1f1f1",
+							axisThickness: 3,
+							
+							labelPadding:8,
+							labelColour:   ["#FF3176",  "#c2ed8c", "#a9d4ff" , "#f1f1f1"],
+							labelRotation:60,
+							
+					
+							titleText: "Male and Female Disabilitys by Age",
+							titleXOffset: -160,
+							titleYOffset: 11,
+							titleWidth: 400,
+							titleSize: 20,
+					
+					
+							//tick
+							tickStrokeWeight:1,
+							tickStrokeLength:10,
+							tickColour: "#f1f1f1",
+							tickPadding: 20,
+							numTicks:5,
+							tickTextColour:"#FF3176",
+							tickTextSize: 14,
+							tickDecimalPlace:  1,
+	
+							//lines
+							lineColour:   ["#FF3176",  "#c2ed8c",],
+							lineThickness: 4,
+							pointSize: 10,
+							pointColour: "#f1f1f1"
+							
+					
+						};
 
-
-
-					//fourth barchart
-					let barChart04 = {
-						data: cleanData,
-						chartWidth: 400,
-						chartHeight: 400,
-						x: 600,
-						y: 1100,
-				
-						barWidth:20,
-						barColour: "#57CE60",
-						barStrokeColour:"#57CE60",
-						barStrokeThickness: 4,
-						
-						yAxisValue:"Total",
-						xAxisLabel:"Age_Group",
-						
-				
-						
-						axisColour: "#f1f1f1",
-						axisThickness: 3,
-						
-						labelPadding:8,
-						labelColour:   ["#FF3176",  "#c2ed8c", "#a9d4ff" , "#f1f1f1"],
-						labelRotation:60,
-						
-				
-						titleText: "EXAMPLE",
-						titleXOffset: -30,
-						titleYOffset: 50,
-						titleWidth: 300,
-						TitleSize: 20,
-				
-				
-						//tick
-						tickStrokeWeight:1,
-						tickStrokeLength:10,
-						tickColour: "#f1f1f1",
-						tickPadding: 20,
-						numTicks:5,
-						tickTextColour:"#FF3176",
-						tickTextSize: 14,
-						tickDecimalPlace:  1,
-
-						//lines
-						lineColour:  "#c2ed8c",
-						lineThickness: 4,
-						pointSize: 10,
-						pointColour: "#f1f1f1"
-						
-				
-					};
-
-								//fifth barchart
-								let barChart05 = {
-									data: cleanData,
-									chartWidth: 400,
-									chartHeight: 400,
-									x: 1200,
-									y: 500,
-							
-									barWidth:20,
-									barColour: "#57CE60",
-									barStrokeColour:"#57CE60",
-									barStrokeThickness: 4,
-									
-									yAxisValue:"Total",
-									xAxisLabel:"Age_Group",
-									
-							
-									
-									axisColour: "#57CE60",
-									axisThickness: 3,
-									
-									labelPadding:90,
-									labelColour:  "#FD6A94",
-									labelRotation:60,
-									
-							
-									titleText: "EXAMPLE",
-									titleXOffset: -30,
-									titleYOffset: 50,
-									titleWidth: 300,
-									TitleSize: 20,
-							
-							
-									//tick
-									tickStrokeWeight:1,
-									tickStrokeLength:10,
-									tickColour: "#fafafa",
-									tickPadding: 10,
-									numTicks:5,
-									tickTextColour:"#FD6A94",
-									tickTextSize: 14,
-									tickDecimalPlace:  1,
-			
-									//lines
-									lineColour:  "#FD6A94",
-									lineThickness: 2,
-									pointSize: 8,
-									pointColour: "#96DED1",
-									
-							
-								};
+					//sixth barchart
+											let barChart06 = {
+												data: cleanData,
+												chartWidth: 400,
+												chartHeight: 400,
+												x: 1200,
+												y: 1100,
+										
+												barWidth:25,
+												barColours:  ["#879CE9","#c2ed8c",],
+												barStrokeColour:"#879CE9",
+												barStrokeThickness: 2,
+												
+												yAxisValue: ["Female", "Male"],
+												xAxisLabel:"Age_Group",
+												
+										
+												
+												axisColour: "#f1f1f1",
+												axisThickness: 3,
+												
+												labelPadding:8,
+												labelColour:  ["#879CE9","#f1f1f1"],
+												labelRotation:60,
+												
+										
+												titleText: "Meow",
+												titleXOffset: -160,
+												titleYOffset: 11,
+												titleWidth: 400,
+												titleSize: 20,
+										
+										
+												//tick
+												tickStrokeWeight:1,
+												tickStrokeLength:10,
+												tickColour: "#879CE9",
+												tickPadding: 10,
+												numTicks:5,
+												tickTextColour:"#879CE9",
+												tickTextSize: 14,
+												tickDecimalPlace:  1,
+												
+										
+											};
 			
 
 	
 
 	barCharts.push(new BarChart(barChart01));
-	barCharts.push(new hBarChart(barChart02));
-	barCharts.push(new sBarChart(barChart03));
-	barCharts.push(new lBarChart(barChart04));
-	// barCharts.push(new eBarChart(barChart05));
+	barCharts.push(new eBarChart(barChart02));
+	barCharts.push(new hBarChart(barChart03));
+	
+	barCharts.push(new sBarChart(barChart04));
+	barCharts.push(new lBarChart(barChart05));
+	// barCharts.push(new oBarChart(barChart06));
 }
 
 function draw() {

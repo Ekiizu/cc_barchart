@@ -40,77 +40,88 @@ class eBarChart {
       this.labelRotation = obj.labelRotation;
       this.labelTextSize = obj.labelTextSize;
       this.labelAlignment = obj.labelAlignment;
-
-      //line
-      this.lineColour =obj.lineColour;
-      this.lineThickness = obj.lineThickness;
-      this.pointSize = obj.pointSize;
-      this.pointColour = obj.pointColour;
+  
+      //text 
+  
+      this.titleText = obj.titleText;
+      this.titleXOffset = obj.titleXOffset;
+          this.titleYOffset = obj.titleYOffset;
+          this.titleWidth = obj.titleWidth;
+          this.titleSize = obj.titleSize;
+      
     }
   
     render() {
-        push();
-        translate(this.x, this.y);
-
-        // Draw x and y axes
-        stroke(this.axisColour);
-        strokeWeight(this.axisThickness);
-        line(0, 0, this.chartWidth, 0); // X axis
-        line(0, 0, 0, -this.chartHeight); // Y axis
-
-        // Calculate maximum value for scaling
-        let maxValue = max(this.data.map((x) => x[this.yAxisValue]));
-        let xStep = this.chartWidth / (this.data.length - 1); // Calculate step size for x-axis
-
-        // Draw lines connecting data points
-        noFill();
-        stroke(this.lineColour);
-        strokeWeight(this.lineThickness);
-        beginShape();
-        for (let i = 0; i < this.data.length; i++) {
-            let xPos = i * xStep;
-            let yPos = map(this.data[i][this.yAxisValue], 0, maxValue, 0, -this.chartHeight);
-            vertex(xPos, yPos);
-        }
-        endShape();
-
-        // Draw points at data points
-        fill(this.pointColour);
+  
+      push();
+      translate(this.x, this.y);
+      
+      
+      textAlign(LEFT);
+      textSize(this.titleSize);
+      fill(270); 
+      text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth); 
+     
+  
+      noFill();
+      stroke(this.axisColour);
+      strokeWeight(this.axisThickness);
+  
+      line(0, 0, this.chartWidth, 0);
+      line(0, 0, 0, -this.chartHeight);
+  
+      fill(this.barColour);
+      stroke(this.barStrokeColour);
+      strokeWeight(this.barStrokeThickness)
+    
+  
+      let barGap =(this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
+      let maxValue = max(this.data.map((x) => x.Total))
+      let scale = this.chartHeight / max(this.data.map((x) => x.Total));
+        let labels = this.data.map((x) => x[this.xAxisLabel]);
+        // console.log(scale);
+      for (let i = 0; i < this.numBars; i++) {
+        let jump = ( barGap * (i + 1)) + (this.barWidth * i);
+        let colHeight = this.data[i][this.yAxisValue] * scale;
+  
+        rect(jump, 0, this.barWidth, -colHeight);
+  
         noStroke();
-        for (let i = 0; i < this.data.length; i++) {
-            let xPos = i * xStep;
-            let yPos = map(this.data[i][this.yAxisValue], 0, maxValue, 0, -this.chartHeight);
-            ellipse(xPos, yPos, this.pointSize);
-        }
-
-        // Draw ticks and labels on the y-axis
-        let tickGap = this.chartHeight / this.numTicks;
-        for (let i = 0; i <= this.numTicks; i++) {
-            let tickY = -i * tickGap;
-            stroke(this.tickColour);
-            line(-this.tickStrokeLength, tickY, 0, tickY); // Tick mark
-            noStroke();
-            fill(this.tickTextColour);
-            textAlign(RIGHT, CENTER);
-            textSize(this.tickTextSize);
-            text(nf(maxValue / this.numTicks * i, this.tickNumRounding, this.tickDecimalPlaces), -this.tickPadding, tickY); // Tick label
-        }
-
-        // Draw labels on the x-axis
-        textAlign(this.labelAlignment);
-        textSize(this.labelTextSize);
         fill(this.labelColour);
-        for (let i = 0; i < this.data.length; i++) {
-            let xPos = i * xStep;
-            let label = this.data[i][this.xAxisLabel];
-            push();
-            translate(xPos, this.labelPadding);
-            rotate(this.labelRotation);
-            text(label, 0, 0);
-            pop();
-        }
-
-        pop();
+          textSize (15);
+          textFont(fontReg)
+        textAlign(LEFT, CENTER);
+        
+  
+      
+  push ()
+        translate(jump + this.barWidth/2 , this.labelPadding);
+        rotate(this.labelRotation);
+        text(labels[i], 0, 0);
+        pop ()
+      }
+  
+      
+      
+      //ticks
+      
+      // line(0,0,-10,0)
+     
+      let tickGap = this.chartHeight / this.numTicks;
+  
+      for (let i = 0; i <= this.numTicks; i++) {
+        noFill();
+        stroke("#879CE9")
+        line(0, -i * tickGap, -this.tickStrokeLength, -i * tickGap);
+        
+        noStroke();
+        fill(this.tickTextColour);
+        textAlign(RIGHT, CENTER)
+        textSize(16)
+        text(maxValue/this.numTicks * i, -this.tickPadding + -this.tickStrokeLength, -i * tickGap);
+      }
+  
+      pop();
     }
     
   }

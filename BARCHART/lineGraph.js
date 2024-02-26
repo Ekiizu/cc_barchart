@@ -46,41 +46,74 @@ class lBarChart {
       this.lineThickness = obj.lineThickness;
       this.pointSize = obj.pointSize;
       this.pointColour = obj.pointColour;
+
+      this.titleText = obj.titleText;
+      this.titleXOffset = obj.titleXOffset;
+      this.titleYOffset = obj.titleYOffset;
+      this.titleWidth = obj.titleWidth;
+      this.titleSize = obj.titleSize;
     }
   
+      
     render() {
         push();
         translate(this.x, this.y);
 
+        textAlign(LEFT);
+        textSize(this.titleSize);
+        fill(270); // Change color as per your requirement
+        text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth);
+
         // Draw x and y axes
         stroke(this.axisColour);
         strokeWeight(this.axisThickness);
-        line(0, 0, this.chartWidth, 0); // X axis
-        line(0, 0, 0, -this.chartHeight); // Y axis
+        line(0, 0, this.chartWidth, 0); 
+        line(0, 0, 0, -this.chartHeight); 
 
-        // Calculate maximum value for scaling
-        let maxValue = max(this.data.map((x) => x[this.yAxisValue]));
+       
+        let maxValue = max(this.data.map(item => Math.max(item[this.yAxisValue[0]], item[this.yAxisValue[1]])));
         let xJump = this.chartWidth / (this.data.length - 1); // Calculate jump size for x-axis
 
-        // Draw lines connecting data points
+        // Draw first line connecting data points
         noFill();
-        stroke(this.lineColour);
+        stroke(this.lineColour[0]); 
         strokeWeight(this.lineThickness);
         beginShape();
         for (let i = 0; i < this.data.length; i++) {
             let xPos = i * xJump;
-            let yPos = map(this.data[i][this.yAxisValue], 0, maxValue, 0, -this.chartHeight);
-            vertex(xPos, yPos);
+            let yPos1 = map(this.data[i][this.yAxisValue[0]], 0, maxValue, 0, -this.chartHeight);
+            vertex(xPos, yPos1);
         }
         endShape();
 
-        // Draw points at data points
-        fill(this.pointColour);
-        noStroke();
-        for (let i = 0; i < this.numBars; i++) {
+        // Draw second line connecting data points
+        noFill();
+        stroke(this.lineColour[1]);
+        strokeWeight(this.lineThickness);
+        beginShape();
+        for (let i = 0; i < this.data.length; i++) {
             let xPos = i * xJump;
-            let yPos = map(this.data[i][this.yAxisValue], 0, maxValue, 0, -this.chartHeight);
-            ellipse(xPos, yPos, this.pointSize);
+            let yPos2 = map(this.data[i][this.yAxisValue[1]], 0, maxValue, 0, -this.chartHeight);
+            vertex(xPos, yPos2);
+        }
+        endShape();
+
+        // Draw points for the first line
+        fill(this.pointColour[0]);
+        noStroke();
+        for (let i = 0; i < this.data.length; i++) {
+            let xPos = i * xJump;
+            let yPos1 = map(this.data[i][this.yAxisValue[0]], 0, maxValue, 0, -this.chartHeight);
+            ellipse(xPos, yPos1, this.pointSize);
+        }
+
+        // Draw points for the second line
+        fill(this.pointColour[1]); 
+        noStroke();
+        for (let i = 0; i < this.data.length; i++) {
+            let xPos = i * xJump;
+            let yPos2 = map(this.data[i][this.yAxisValue[1]], 0, maxValue, 0, -this.chartHeight);
+            ellipse(xPos, yPos2, this.pointSize);
         }
 
         // Draw ticks and labels on the y-axis
@@ -92,19 +125,17 @@ class lBarChart {
             noStroke();
             fill(this.tickTextColour);
             textAlign(RIGHT, CENTER);
-            textFont(fontReg)
             textSize(this.tickTextSize);
-            text(nf(maxValue / this.numTicks * i, this.tickNumRounding, this.tickDecimalPlaces), -this.tickPadding, tickY); 
-            
+            textFont(fontReg);
+            text(nf(maxValue / this.numTicks * i, this.tickNumRounding, this.tickDecimalPlaces), -this.tickPadding, tickY);// SOMETHING WRONG HERE
         }
 
         // Draw labels on the x-axis
         noStroke();
-        textAlign(LEFT,CENTER);
+        textAlign(LEFT, CENTER);
         textSize(14);
         fill(this.labelColour);
 
-        
         for (let i = 0; i < this.numBars; i++) {
             let xPos = i * xJump;
             let label = this.data[i][this.xAxisLabel];
@@ -117,6 +148,8 @@ class lBarChart {
 
         pop();
     }
-    
-  }
+}
+
+
+
   

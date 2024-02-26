@@ -40,11 +40,22 @@ class hBarChart {
       this.labelRotation = obj.labelRotation;
       this.labelTextSize = obj.labelTextSize;
       this.labelAlignment = obj.labelAlignment;
+
+      this.titleText = obj.titleText;
+      this.titleXOffset = obj.titleXOffset;
+      this.titleYOffset = obj.titleYOffset;
+      this.titleWidth = obj.titleWidth;
+      this.titleSize = obj.titleSize;
     }
   
     render() {
       push();
       translate(this.x, this.y);
+
+      textAlign(LEFT);
+      textSize(this.titleSize);
+      fill(270); 
+      text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth);
   
       noFill();
       stroke(this.axisColour);
@@ -99,7 +110,7 @@ class hBarChart {
           stroke(this.tickColour)
           let xPos = i * tickGap;
           // translate(-(i*(-this.chartHeight/this.numTicks)) / 3,2 ); // Moving the origin to the x-axis and moving the tick position (DID NOT WORK)
-          line(xPos, 0, xPos, this.tickStrokeLength); // Drawing a line for each tick,
+          line(xPos, 0, xPos, this.tickStrokeLength); // Drawing a line for each tick
       
           noStroke();
           fill(this.tickTextColour);
