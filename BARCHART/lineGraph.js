@@ -117,7 +117,7 @@ class lBarChart {
         // draw points for the second line
         fill(this.pointColour[1]); 
         noStroke();
-        for (let i = 0; i < this.data.length; i++) { //loops through each data point
+        for (let i = 0; i < this.data.length; i++) { 
             let xPos = i * xJump; 
             let yPos2 = map(this.data[i][this.yAxisValue[1]], 0, maxValue, 0, -this.chartHeight); 
             ellipse(xPos, yPos2, this.pointSize);  //draw and ellipse at this position

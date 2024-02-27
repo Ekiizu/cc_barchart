@@ -76,9 +76,7 @@ class BarChart {
     line(0, 0, 0, -this.chartHeight);
     
     //style for the bars
-    fill(this.barColour);
-    stroke(this.barStrokeColour);
-    strokeWeight(this.barStrokeThickness)
+    
   
     
     
@@ -89,6 +87,10 @@ class BarChart {
 	  // console.log(scale);
 
 
+    noStroke();
+    fill(this.barColour);
+    
+  
     //Loops through each bar
     for (let i = 0; i < this.numBars; i++) {
 
@@ -98,13 +100,9 @@ class BarChart {
 
       rect(jump, 0, this.barWidth, -colHeight);//makes the bar
 
-
-      //style for the labels
-      noStroke();
-      fill(this.labelColour);
-	    textSize (15);
-	    textFont(fontReg)
-      textAlign(LEFT, CENTER);
+      
+      
+    
       
 
     //rotates each label for each bar
@@ -115,17 +113,23 @@ class BarChart {
 	    pop ()
     }
 
+    //style for the labels
+    noStroke();
+    fill(this.labelColour);
+    textSize (15);
+    textFont(fontReg)
+    textAlign(LEFT, CENTER);
     
   
    
     let tickGap = this.chartHeight / this.numTicks; //calculates the gap between the ticks
-    
+    strokeWeight(this.tickStrokeWeight)
     //loops through each tick
     for (let i = 0; i <= this.numTicks; i++) {
 
 
       noFill();
-      stroke('#C2ED8C')
+      stroke(this.tickColour)
       line(0, -i * tickGap, -this.tickStrokeLength, -i * tickGap); //draws the tick
       
       //tick labels

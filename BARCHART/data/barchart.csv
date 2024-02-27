@@ -1,12 +1,12 @@
 ﻿Age_Group,Female,Male,Disability,Year,Total
-0 - 4 years,2,6,All,2022,8
+0 - 4 years,3,6,All,2022,8
 4 - 9 years,6,5,All,2021,11
 10 - 14 years,2,6,All,2020,8
 15 - 17 years,8,18,All,2019,26
 18 - 20 years,10,16,All,2018,36
 21 - 24 years,17,8,All,2017,25
 25 - 34 years,30,19,All,2016,49
-35 - 44 years,26,3,All,2015,29
-45 - 54 years,10,12,All,2014,22
-55 - 64 years,27,28,All,2013,55
-65 years and over,40,40,All,2014,80
+35 - 44 years,27,18,All,2015,43
+45 - 54 years,32,33,All,2014,65
+55 - 64 years,43,44,All,2013,87
+65 years and over,50,50,All,2014,100

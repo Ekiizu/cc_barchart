@@ -62,6 +62,7 @@ class hBarChart {
       text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth);
   
       noFill();
+      noStroke();
       stroke(this.axisColour);
       strokeWeight(this.axisThickness);
   
@@ -74,17 +75,21 @@ class hBarChart {
       let scale = this.chartWidth / max(this.data.map((x) => x.Total));
       let labels = this.data.map((x) => x[this.xAxisLabel]);
         // console.log(scale);
+
+      noStroke();
+      
+     
       for (let i = 0; i < this.numBars; i++) {
       let jump = ( barGap * (i + 4)) + (this.barWidth * i);
       let colHeight = this.data[i][this.yAxisValue] * scale;
   
         rect(0, -jump, colHeight, this.barWidth);
   
-        noStroke();
-        // console.log(this.labelColour)
+       
+        
         fill(this.labelColour[i % this.labelColour.length]);
-          textSize (15);
-          textFont(fontReg)
+        textSize (15);
+        textFont(fontReg)
         textAlign(LEFT, CENTER);
         
   
@@ -94,6 +99,8 @@ class hBarChart {
         rotate(this.labelRotation);
         text(labels[i], 0, 0);
         pop();
+
+        
       }
   
       

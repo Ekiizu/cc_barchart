@@ -4,6 +4,7 @@ class sBarChart {
       this.data = obj.data;
       this.yAxisValue = obj.yAxisValue;
       this.xAxisLabel = obj.xAxisLabel;
+      this.zValue = obj.zValue;
   
       //position and size
       this.x = obj.x;
@@ -48,24 +49,13 @@ class sBarChart {
       this.titleSize = obj.titleSize;
 
       //Alannah showed me this lol
-      this.maxValue = this.calculatingTotal();
-     
+      // this.maxValue = this.calculatingTotal();
+      this.maxValue = (this.data.map(item => +(item[this.yAxisValue[1],this.yAxisValue[0]])));
+      console.log(this.maxValue)
+      
       
     }
     
-    calculatingTotal() {
-      //maps through the data array to calculate the sum of Male and Female
-      let maxValues = this.data.map(item => {
-        let male = parseFloat(item.Male); // Parse "Male" property as float //accepts the string and converts it to a number
-        let female = parseFloat(item.Female); // Parse "Female" property as float //ONLY WAY I GOT IT TO WORK SO FAR
-        let sum = male + female; 
-        // console.log("Sum:", sum);
-        return sum;
-    });
-    console.log("Max Values:", maxValues); //logs the maximum values
-    return Math.max(...maxValues); // returns the maximum value from the array 
-}
-
     
     render() {
       // console.log(data);
@@ -92,21 +82,25 @@ class sBarChart {
       let barGap = (this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
 
       let labels = this.data.map(item => item[this.xAxisLabel]);
-      
+    
 
-      //loops through each yAxisValue (two values)
-      for (let j = 0; j < this.yAxisValue.length; j++) {
-        let currentYAxis = this.yAxisValue[j]; //gets current yAxisValue
-        let barGap = (this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1); //bargap
-
-        //loops through each bar
-        for (let i = 0; i < this.numBars; i++) {
+      for (let i = 0; i < this.numBars; i++) {
+        push()
+        for (let j = 0; j < this.yAxisValue.length; j++) {
+          let currentYAxis = this.yAxisValue[j]; //gets current yAxisValue
+         
+          //loops through each bar
+   
+          let height =
+            (this.data[i][currentYAxis] / this.maxValue) * this.chartHeight; //calculates the height of the bar
             let jump = barGap * (i + 1) + this.barWidth * i; //x position for bar
-            let height = (this.data[i][currentYAxis] / this.maxValue) * this.chartHeight; //calculates the height of the bar
-            
-            fill(this.barColours[j]); // Use different color for each yAxisValue
-            rect(jump, 0, this.barWidth, -height); //draws the bar
+       
+          fill(this.barColours[j]); // Use different color for each yAxisValue
+          rect(jump, 0, this.barWidth, -height); //draws the bar
+          translate(0,-height)
         }
+        pop()
+       
       }
 
 

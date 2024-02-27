@@ -44,8 +44,8 @@ function setup() {
 		x: 100,
 		y: 500,
 
-		barWidth:25,
-	    barColour: "",
+		barWidth:28,
+	    barColour: "#FF3176",
 		barStrokeColour:"#f1f1f1",
 		barStrokeThickness: 3,
 		
@@ -53,11 +53,11 @@ function setup() {
 		xAxisLabel:"Age_Group",
 
 		
-        axisColour: "#C2ED8C",
+        axisColour: "#f1f1f1",
         axisThickness: 3,
 		
-		labelPadding:8,
-		labelColour: "#f1f1f1",
+		labelPadding:15,
+		labelColour: "#C2ED8C",
 		labelRotation:60,
 		
 
@@ -69,7 +69,7 @@ function setup() {
 
 
 		//tick
-		tickStrokeWeight:1,
+		tickStrokeWeight:3,
 		tickStrokeLength:10,
 		tickColour: "#f1f1f1",
 		tickPadding: 10,
@@ -101,7 +101,7 @@ function setup() {
 		axisColour: "#879CE9", 
 		axisThickness: 3,
 		
-		labelPadding:8,
+		labelPadding:15,
 		labelColour: "#f1f1f1",
 		labelRotation:60,
 		
@@ -142,9 +142,9 @@ function setup() {
 			y: 500,
 	
 			barWidth:25,
-			barColours: ["#57CE60", "#879CE9", "#FD6A94 "], //array of colours 
+			barColours:  ["#FF3176",  "#c2ed8c", "#a9d4ff" ,], //array of colours 
 			barStrokeColour:"#57CE60",
-			barStrokeThickness: 3,
+			barStrokeThickness: 0,
 			
 			yAxisValue:"Total",
 			xAxisLabel:"Age_Group",
@@ -154,7 +154,7 @@ function setup() {
 			axisThickness: 3,
 			
 			labelPadding:8,
-			labelColour:  ["#FF3176",  "#c2ed8c", "#a9d4ff" , "#f1f1f1"],
+			labelColour:  ["#FF3176",  "#c2ed8c", "#a9d4ff" ,],
 			labelRotation:0,
 
 
@@ -169,7 +169,7 @@ function setup() {
 	
 	
 			//tick
-			tickStrokeWeight:1,
+			tickStrokeWeight:0,
 			tickStrokeLength:10,
 			tickColour: "#f1f1f1",
 			tickPadding: 10,
@@ -201,14 +201,14 @@ function setup() {
 						y: 1100,
 				
 						barWidth:25,
-						barColours:  ["#879CE9","#c2ed8c",],
+						barColours:  ["#FF3176","#c2ed8c",],
 						barStrokeColour:"#879CE9",
 						barStrokeThickness: 2,
 						
-						yAxisValue: ["Total", "Male"],
+						yAxisValue: ["Female", "Male"],
 						xAxisLabel:"Age_Group",
 						
-				
+						
 						
 						axisColour: "#f1f1f1",
 						axisThickness: 3,
@@ -228,10 +228,10 @@ function setup() {
 						//tick
 						tickStrokeWeight:1,
 						tickStrokeLength:10,
-						tickColour: "#879CE9",
+						tickColour: "#f1f1f1",
 						tickPadding: 10,
 						numTicks:5,
-						tickTextColour:"#879CE9",
+						tickTextColour:"#f1f1f1",
 						tickTextSize: 14,
 						tickDecimalPlace:  1,
 						
@@ -248,8 +248,8 @@ function setup() {
 						y: 1100,
 				
 						barWidth:20,
-						barColours:  ["#FF3176","#a9d4ff",],
-						barStrokeColour:"#879CE9",
+						barColours:  ["#FF3176","#c2ed8c",],
+						barStrokeColour:"#f1f1f1",
 						barStrokeThickness: 3,
 						
 						yAxisValue: ["Female", "Male"],
@@ -275,10 +275,10 @@ function setup() {
 						//tick
 						tickStrokeWeight:1,
 						tickStrokeLength:10,
-						tickColour: "#879CE9",
+						tickColour: "#f1f1f1",
 						tickPadding: 10,
 						numTicks:5,
-						tickTextColour:"#879CE9",
+						tickTextColour:"#f1f1f1",
 						tickTextSize: 16,
 						tickDecimalPlace:  1,
 						
@@ -299,7 +299,7 @@ function setup() {
 							barStrokeColour:"#57CE60",
 							barStrokeThickness: 4,
 							
-							yAxisValue: ["Female", "Male"],
+							yAxisValue: ["Female", "Total"],
 							xAxisLabel:"Age_Group",
 							
 					
@@ -330,7 +330,7 @@ function setup() {
 							tickDecimalPlace:  1,
 	
 							//lines
-							lineColour:   ["#FF3176",  "#c2ed8c",],
+							lineColour:   ["#FF3176",  "#879CE9",],
 							lineThickness: 4,
 							pointSize: 10,
 							pointColour: "#f1f1f1"
@@ -357,13 +357,13 @@ function draw() {
 	
 		
 		
-	
+	noLoop();
 	background(backgroundColour);
 
 	textFont(fontReg)
 	textSize(25);
 	    fill("#f1f1f1")
-		text("People Registered as Having an Intellectual Disability", canvasWidth / 3.5,50);
+		text("People Registered as Having an Intellectual Disability by County", canvasWidth / 4 ,50);
 	
 	barCharts.forEach(bar => bar.render());
 }

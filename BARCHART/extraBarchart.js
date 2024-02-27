@@ -71,10 +71,11 @@ class eBarChart {
   
       line(0, 0, this.chartWidth, 0);
       line(0, 0, 0, -this.chartHeight);
-  
+      
+
+      noStroke()
       fill(this.barColour);
-      stroke(this.barStrokeColour);
-      strokeWeight(this.barStrokeThickness)
+      
     
   
       let barGap =(this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
@@ -88,12 +89,7 @@ class eBarChart {
   
         rect(jump, 0, this.barWidth, -colHeight);
   
-        noStroke();
-        fill(this.labelColour);
-          textSize (15);
-          textFont(fontReg)
-        textAlign(LEFT, CENTER);
-        
+   
   
       
   push ()
@@ -103,6 +99,12 @@ class eBarChart {
         pop ()
       }
   
+
+      noStroke();
+      fill(this.labelColour);
+        textSize (15);
+        textFont(fontReg)
+      textAlign(LEFT, CENTER);
       
       
       
