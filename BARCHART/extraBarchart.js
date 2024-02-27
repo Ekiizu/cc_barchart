@@ -51,6 +51,7 @@ class eBarChart {
       
     }
     //Vertical barchart with different data
+    //This is the same as my first one so I did not comment it 
     render() {
   
       push();

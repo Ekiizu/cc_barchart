@@ -53,41 +53,47 @@ class lBarChart {
       this.titleWidth = obj.titleWidth;
       this.titleSize = obj.titleSize;
     }
-  
-      
+
+    //Linegraph Barchart 
+ 
+    
     render() {
         push();
         translate(this.x, this.y);
 
+
+        //text
         textFont(fontReg)
         textAlign(LEFT);
         textSize(this.titleSize);
         fill(270); 
         text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth);
 
-        
+        //style for the axes
         stroke(this.axisColour);
         strokeWeight(this.axisThickness);
+        //draw the x and y axes
         line(0, 0, this.chartWidth, 0); 
         line(0, 0, 0, -this.chartHeight); 
-
-       
+        
+       //calculate the maximum value from the data for scaling purposes
         let maxValue = max(this.data.map(item => Math.max(item[this.yAxisValue[0]], item[this.yAxisValue[1]])));
+        //calculate the x distance between each data point
         let xJump = this.chartWidth / (this.data.length - 1); 
 
-        
+        //draws the first line which will connect the data points
         noFill();
         stroke(this.lineColour[0]); 
         strokeWeight(this.lineThickness);
         beginShape();
-        for (let i = 0; i < this.data.length; i++) {
-            let xPos = i * xJump;
-            let yPos1 = map(this.data[i][this.yAxisValue[0]], 0, maxValue, 0, -this.chartHeight);
-            vertex(xPos, yPos1);
+        for (let i = 0; i < this.data.length; i++) { //loop through each data point
+            let xPos = i * xJump; //calculate the x position of each data point
+            let yPos1 = map(this.data[i][this.yAxisValue[0]], 0, maxValue, 0, -this.chartHeight); //map the y value of the data points to the charts y-axis range
+            vertex(xPos, yPos1); //define a vertex at that position
         }
         endShape();
 
-        // Draw second line connecting data points
+        // draw second line connecting these data points
         noFill();
         stroke(this.lineColour[1]);
         strokeWeight(this.lineThickness);
@@ -99,25 +105,25 @@ class lBarChart {
         }
         endShape();
 
-        // Draw points for the first line
+        // draw points for the first line
         fill(this.pointColour[0]);
         noStroke();
-        for (let i = 0; i < this.data.length; i++) {
-            let xPos = i * xJump;
-            let yPos1 = map(this.data[i][this.yAxisValue[0]], 0, maxValue, 0, -this.chartHeight);
-            ellipse(xPos, yPos1, this.pointSize);
+        for (let i = 0; i < this.data.length; i++) { //loops through each data point
+            let xPos = i * xJump;//calculates the x position of the point
+            let yPos1 = map(this.data[i][this.yAxisValue[0]], 0, maxValue, 0, -this.chartHeight); //maps the y value of the data to the charts y-axis range
+            ellipse(xPos, yPos1, this.pointSize);  //draw and ellipse at this position
         }
 
-        // Draw points for the second line
+        // draw points for the second line
         fill(this.pointColour[1]); 
         noStroke();
-        for (let i = 0; i < this.data.length; i++) {
-            let xPos = i * xJump;
-            let yPos2 = map(this.data[i][this.yAxisValue[1]], 0, maxValue, 0, -this.chartHeight);
-            ellipse(xPos, yPos2, this.pointSize);
+        for (let i = 0; i < this.data.length; i++) { //loops through each data point
+            let xPos = i * xJump; 
+            let yPos2 = map(this.data[i][this.yAxisValue[1]], 0, maxValue, 0, -this.chartHeight); 
+            ellipse(xPos, yPos2, this.pointSize);  //draw and ellipse at this position
         }
 
-        // Draw ticks and labels on the y-axis
+        // draw ticks and labels on the y-axis
         let tickGap = this.chartHeight / this.numTicks;
         for (let i = 0; i <= this.numTicks; i++) {
             let tickY = -i * tickGap;
@@ -131,6 +137,7 @@ class lBarChart {
             text(nf(maxValue / this.numTicks * i, this.tickNumRounding, this.tickDecimalPlaces), -this.tickPadding, tickY);// SOMETHING WRONG HERE
         }
 
+        //added a legend for yAxisValues so chart is easy to understand
         let legendX = 160;
         let legendY = 100; 
         let legendItemWidth = 30;
@@ -151,9 +158,6 @@ class lBarChart {
         
 
 
-        
-
-        
 
         // Draw labels on the x-axis
         noStroke();
@@ -164,6 +168,7 @@ class lBarChart {
         for (let i = 0; i < this.numBars; i++) {
             let xPos = i * xJump;
             let label = this.data[i][this.xAxisLabel];
+            //draw rotated labels
             push();
             translate(xPos, this.labelPadding);
             rotate(this.labelRotation);
@@ -185,4 +190,4 @@ class lBarChart {
 
 
 
-  
+  //N00222012 Emma Ann Hynes

@@ -56,23 +56,30 @@ class oBarChart {
   
  
     calculatingTotal() {
+        // Maps through the data to calculate the total for each item
         let maxValues = this.data.map(item => {
+          //use reduce to sum up the values in the yAxisValue // reduce turns an array into a single value
             let total = this.yAxisValue.reduce((acc, val) => acc + parseFloat(item[val]), 0);
-            return total;
+            return total; 
         });
+        
 
+        //make sure there isn't any NaN values from the totals
         let filteredMaxValues = maxValues.filter(value => !isNaN(value));
+        //if nothing is found
         if (filteredMaxValues.length === 0) {
-            console.error("No valid values found in the dataset.");
+            console.error("OH NO, NO DATA!!! :(");
             return 0;
         }
         console.log(maxValues)
-        return Math.max(...filteredMaxValues);
+        return Math.max(...filteredMaxValues); //logs the maimum values
     }
+    
 
+    //100% Barchart 
     
     render() {
-    //   console.log(data);
+    //console.log(data);
       push();
       translate(this.x, this.y);
       
@@ -93,30 +100,31 @@ class oBarChart {
       stroke(this.barStrokeColour);
       strokeWeight(this.barStrokeThickness)
     
-      let barGap = (this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
+      let barGap = (this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);//calculate gap between bar
 
-      let labels = this.data.map(item => item[this.xAxisLabel]);
-          // Calculate total values for each category
+      let labels = this.data.map(item => item[this.xAxisLabel]); //gets labels from the x-axis
+      
+      // calculate total values for each category
       let totals = this.data.map(item => this.yAxisValue.reduce((acc, val) => acc + parseFloat(item[val]), 0));
 
-    // Loop through each bar
+      // loop through each bar
         for (let i = 0; i < this.numBars; i++) {
-            let jump = (this.chartWidth / this.numBars) * i;
+            let jump = (this.chartWidth / this.numBars) * i; //calculates the x position for current bar
             let stackedHeight = 0;
 
-            // This will loop through each category
+            // this will loop through each category
             for (let j = 0; j < this.yAxisValue.length; j++) {
-                let currentYAxis = this.yAxisValue[j];
-                let value = parseFloat(this.data[i][currentYAxis]);
+                let currentYAxis = this.yAxisValue[j]; //get current yAxisValue
+                let value = parseFloat(this.data[i][currentYAxis]); //get the value for the current category
 
-                // Calculates the height of the current category
+                // calculates the height of the current category
                 let height = (value / totals[i]) * this.chartHeight;
 
-                // Draw the bar
+                // draw the bar
                 fill(this.barColours[j]);
                 rect(jump, -stackedHeight, this.chartWidth / this.numBars, -height);
 
-                // Update stacked height for the next category
+                // updates the stacked height for the next category
                 stackedHeight += height;
         }
     }
@@ -127,13 +135,12 @@ class oBarChart {
       for (let i = 0; i < this.numBars; i++) {
         let jump = barGap * (i + 1) + this.barWidth * i;
         // let colHeight = this.data[i][this.yAxisValue] * scale;
-  
         // rect(jump, 0, this.barWidth, -colHeight);
   
         noStroke();
         fill("#f1f1f1");
-          textSize (15);
-          textFont(fontReg)
+        textSize (15);
+        textFont(fontReg)
         textAlign(LEFT, CENTER);
         
   
@@ -147,9 +154,7 @@ class oBarChart {
   
       
       
-      //ticks
-      
-      // line(0,0,-10,0)
+    
      
       let tickGap = this.chartHeight / this.numTicks;
   
@@ -165,8 +170,7 @@ class oBarChart {
         text(this.maxValue /this.numTicks * i, -this.tickPadding + -this.tickStrokeLength, -i * tickGap);
       }
 
-
-     //wanted to add a legend 
+      //added a legend for yAxisValues so chart is easy to understand
       let legendX = 160;
       let legendY = 100; 
       let legendItemWidth = 30;

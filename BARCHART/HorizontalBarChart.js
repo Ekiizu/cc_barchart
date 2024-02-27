@@ -47,6 +47,9 @@ class hBarChart {
       this.titleWidth = obj.titleWidth;
       this.titleSize = obj.titleSize;
     }
+
+    //Horizontal barchart
+    //very similar to my vertical barchart
   
     render() {
       push();
@@ -65,20 +68,15 @@ class hBarChart {
       line(0, 0, this.chartWidth, 0);
       line(0, 0, 0, -this.chartHeight);
       
-      //for some reason my bar colours do not work but my label colours work for my bar colours // FIXED 
-      // fill(this.barColours[i % this.barColours.length]);
-      // stroke(this.barStrokeColour);
-      // strokeWeight(this.barStrokeThickness)
-    
   
       let barGap =(this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
       let maxValue = max(this.data.map((x) => x[this.yAxisValue]));
       let scale = this.chartWidth / max(this.data.map((x) => x.Total));
-        let labels = this.data.map((x) => x[this.xAxisLabel]);
+      let labels = this.data.map((x) => x[this.xAxisLabel]);
         // console.log(scale);
       for (let i = 0; i < this.numBars; i++) {
-        let jump = ( barGap * (i + 4)) + (this.barWidth * i);
-        let colHeight = this.data[i][this.yAxisValue] * scale;
+      let jump = ( barGap * (i + 4)) + (this.barWidth * i);
+      let colHeight = this.data[i][this.yAxisValue] * scale;
   
         rect(0, -jump, colHeight, this.barWidth);
   
@@ -90,7 +88,7 @@ class hBarChart {
         textAlign(LEFT, CENTER);
         
   
-      
+        //labels
         push();
         translate(colHeight + this.labelPadding, -jump + this.barWidth / 2);
         rotate(this.labelRotation);
@@ -100,9 +98,7 @@ class hBarChart {
   
       
       
-      //ticks
       
-      // line(0,0,-10,0)
       let tickGap = this.chartHeight / this.numTicks; 
 
       for (let i = 0; i <= this.numTicks; i++) {

@@ -55,39 +55,51 @@ class BarChart {
 
   render() {
 
-    push();
+    push(); // saves the current drawing style and transformation
     translate(this.x, this.y);
-    
+
+
+    //text
     textFont(fontReg)
     textAlign(LEFT);
     textSize(this.titleSize);
     fill(270); 
     text(this.titleText, this.chartWidth / 2 + this.titleXOffset, -this.chartHeight - this.titleYOffset, this.titleWidth); 
    
-
+    //style for the axes
     noFill();
     stroke(this.axisColour);
     strokeWeight(this.axisThickness);
 
+     //draws the x and y axes
     line(0, 0, this.chartWidth, 0);
     line(0, 0, 0, -this.chartHeight);
-
+    
+    //style for the bars
     fill(this.barColour);
     stroke(this.barStrokeColour);
     strokeWeight(this.barStrokeThickness)
   
-
-    let barGap =(this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1);
-    let maxValue = max(this.data.map((x) => x.Total))
-    let scale = this.chartHeight / max(this.data.map((x) => x.Total));
-	  let labels = this.data.map((x) => x[this.xAxisLabel]);
+    
+    
+    let barGap =(this.chartWidth - this.numBars * this.barWidth) / (this.numBars + 1); //calculates the gap between each bar
+    let maxValue = max(this.data.map((x) => x.Total)) //Will find the maximum value of the data
+    let scale = this.chartHeight / maxValue; // calculates the scale
+	  let labels = this.data.map((x) => x[this.xAxisLabel]); //finds the labels from the data 
 	  // console.log(scale);
+
+
+    //Loops through each bar
     for (let i = 0; i < this.numBars; i++) {
-      let jump = ( barGap * (i + 1)) + (this.barWidth * i);
-      let colHeight = this.data[i][this.yAxisValue] * scale;
 
-      rect(jump, 0, this.barWidth, -colHeight);
+    
+      let jump = ( barGap * (i + 1)) + (this.barWidth * i); //finds the X position of the current bar
+      let colHeight = this.data[i][this.yAxisValue] * scale; //finds the height
 
+      rect(jump, 0, this.barWidth, -colHeight);//makes the bar
+
+
+      //style for the labels
       noStroke();
       fill(this.labelColour);
 	    textSize (15);
@@ -95,27 +107,28 @@ class BarChart {
       textAlign(LEFT, CENTER);
       
 
-    
-push ()
+    //rotates each label for each bar
+      push ()
       translate(jump + this.barWidth/2 , this.labelPadding);
       rotate(this.labelRotation);
       text(labels[i], 0, 0);
-	  pop ()
+	    pop ()
     }
 
     
-    
-    //ticks
-    
-    // line(0,0,-10,0)
+  
    
-    let tickGap = this.chartHeight / this.numTicks;
-
+    let tickGap = this.chartHeight / this.numTicks; //calculates the gap between the ticks
+    
+    //loops through each tick
     for (let i = 0; i <= this.numTicks; i++) {
+
+
       noFill();
       stroke('#C2ED8C')
-      line(0, -i * tickGap, -this.tickStrokeLength, -i * tickGap);
+      line(0, -i * tickGap, -this.tickStrokeLength, -i * tickGap); //draws the tick
       
+      //tick labels
       noStroke();
       fill(this.tickTextColour);
       textAlign(RIGHT, CENTER)
